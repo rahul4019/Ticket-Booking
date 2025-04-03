@@ -22,6 +22,7 @@ dependencies {
     // This dependency is used by the application.
     implementation libs.guava
 
+    // third party library for object mapping
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
 }
 

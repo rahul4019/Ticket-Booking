@@ -16,6 +16,7 @@ public class UserBookingService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    // final is used so when it gets initialized no one can change it
     private static final String USERS_PATH = "../localDb/users.json";
 
     // constructor
@@ -25,6 +26,11 @@ public class UserBookingService {
         File users = new File(USERS_PATH);
         userList = objectMapper.readValue(users, new TypeReference<List<User>>() {
         }); // assigning userList variable to json Data
+    }
 
+    public Boolean loginUser(){
+        Optional<User> foundUser = userList.stream().filter(user ->{
+            return user.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(),user1)
+        })
     }
 }
