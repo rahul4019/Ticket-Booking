@@ -9,4 +9,6 @@ public class Ticket {
     private String destination;
     private Date dateOfTravel;
     private Train train;
+
+
 }
