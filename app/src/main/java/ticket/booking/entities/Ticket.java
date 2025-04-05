@@ -7,8 +7,64 @@ public class Ticket {
     private String userId;
     private String source;
     private String destination;
-    private Date dateOfTravel;
+    private String dateOfTravel;
     private Train train;
 
+    // constructor
+    public Ticket(String ticketId, String userId, String source, String destination, String dateOfTravel, Train train) {
+        this.ticketId = ticketId;
+        this.userId = userId;
+        this.source = source;
+        this.destination = destination;
+        this.dateOfTravel = dateOfTravel;
+        this.train = train;
+    }
 
+    // another constructor
+    public Ticket() {
+    }
+
+    public String getTicketInfo() {
+        return String.format("Ticket ID: %s belongs to User %s from %s to %s on %s", ticketId, userId, source, destination, dateOfTravel);
+    }
+
+    public String getTicketId() {
+        return ticketId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public String getDateOfTravel() {
+        return dateOfTravel;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public void setDateOfTravel(String dateOfTravel) {
+        this.dateOfTravel = dateOfTravel;
+    }
+
+    public Train getTrain() {
+        return train;
+    }
+
+    public void setTrain(Train train) {
+        this.train = train;
+    }
 }
