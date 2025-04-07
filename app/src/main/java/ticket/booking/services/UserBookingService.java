@@ -28,9 +28,10 @@ public class UserBookingService {
         }); // assigning userList variable to json Data
     }
 
-    public Boolean loginUser(){
-        Optional<User> foundUser = userList.stream().filter(user ->{
-            return user.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(),user1)
-        })
+    public Boolean loginUser() {
+        Optional<User> foundUser = userList.stream().filter(user -> {
+            return user.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1)
+        }).findFirst();
+        return foundUser.isPresent();
     }
 }

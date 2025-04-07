@@ -24,6 +24,9 @@ dependencies {
 
     // third party library for object mapping
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
+
+    // bcrypt (used for hashing password)
+    implementation("org.mindrot:jbcrypt:0.4")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
