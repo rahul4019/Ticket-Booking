@@ -3,10 +3,12 @@ package ticket.booking.services;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ticket.booking.entities.User;
+import ticket.booking.util.UserServiceUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class UserBookingService {
     private User user;
@@ -28,10 +30,29 @@ public class UserBookingService {
         }); // assigning userList variable to json Data
     }
 
+    // user login method
     public Boolean loginUser() {
-        Optional<User> foundUser = userList.stream().filter(user -> {
-            return user.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1)
+        Optional<User> foundUser = userList.stream().filter(user1 -> {
+            return user.getName().equals(user1.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
         }).findFirst();
         return foundUser.isPresent();
+    }
+
+    // user signup method
+    public Boolean signUPUser(User user1) {
+        try {
+            userList.add(user1);
+            saveUserListToFile();
+            return Boolean.TRUE;
+        } catch (IOException ex) {
+            return Boolean.FALSE;
+        }
+
+    }
+
+    // save user list to file method
+    private void saveUserListToFile() throws IOException {
+        File usersFile = new File(USERS_PATH);
+        objectMapper.writeValue(usersFile, userList);
     }
 }
