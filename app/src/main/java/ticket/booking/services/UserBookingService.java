@@ -2,11 +2,13 @@ package ticket.booking.services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ticket.booking.entities.Train;
 import ticket.booking.entities.User;
 import ticket.booking.util.UserServiceUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -31,8 +33,19 @@ public class UserBookingService {
         }); // assigning userList variable to json Data
     }
 
+
+    public UserBookingService() throws IOException {
+        loadUsers();
+    }
+
+    public List<User> loadUsers() throws IOException {
+        File users = new File(USERS_PATH);
+        return objectMapper.readValue(users, new TypeReference<List<User>>() {
+        });
+    }
+
     // user login method
-    public Boolean loginUser() {
+    public Boolean loginUser(User user1) {
         Optional<User> foundUser = userList.stream().filter(user1 -> {
             return user.getName().equals(user1.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
         }).findFirst();
@@ -74,16 +87,24 @@ public class UserBookingService {
 
         String finalTicketId1 = ticketId; // because string are immutable
         boolean removed = user.getTicketsBooked().removeIf(ticket -> ticket.getTicketId().equals(finalTicketId1));
-        
+
         String finalTicketId = ticketId;
         user.getTicketsBooked().removeIf(Ticket -> Ticket.getTicketId().equals(finalTicketId));
         if (removed) {
             System.out.println("Ticket with ID " + ticketId + " has been canceled.");
             return Boolean.TRUE;
-        }else{
+        } else {
             System.out.println("No ticket found with ID " + ticketId);
             return Boolean.FALSE;
         }
     }
 
+    public List<Train> getTrains(String source, String destination) {
+        try {
+            TrainService trainService = new TrainService();
+            return trainService.searchTrains(source, destination);
+        } catch (IOException ex) {
+            return new ArrayList<>();
+        }
+    }
 }
