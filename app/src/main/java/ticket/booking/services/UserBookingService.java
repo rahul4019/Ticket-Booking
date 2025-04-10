@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class UserBookingService {
     private User user;
 
-    // variable userList of type
+    // trainList a list of type Train
     private List<User> userList;
 
     private ObjectMapper objectMapper = new ObjectMapper();
