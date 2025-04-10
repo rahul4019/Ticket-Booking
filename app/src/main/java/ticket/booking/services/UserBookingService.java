@@ -45,7 +45,7 @@ public class UserBookingService {
     }
 
     // user login method
-    public Boolean loginUser(User user1) {
+    public Boolean loginUser() {
         Optional<User> foundUser = userList.stream().filter(user1 -> {
             return user.getName().equals(user1.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
         }).findFirst();
@@ -69,7 +69,6 @@ public class UserBookingService {
         File usersFile = new File(USERS_PATH);
         objectMapper.writeValue(usersFile, userList);
     }
-
 
     public void fetchBookings() {
         user.printTickets();
@@ -103,8 +102,13 @@ public class UserBookingService {
         try {
             TrainService trainService = new TrainService();
             return trainService.searchTrains(source, destination);
-        } catch (IOException ex) {
+        } catch (Exception ex) {
+            System.err.println("Error while searching for trains: " + ex.getMessage());
             return new ArrayList<>();
         }
+    }
+
+    public List<List<Integer>> fetchSeats(Train train) {
+        return train.getSeats();
     }
 }

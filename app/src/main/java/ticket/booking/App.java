@@ -91,6 +91,12 @@ public class App {
                     System.out.println("Select a train by typing 1,2,3...");
                     trainSelectedForBooking = trains.get(s.nextInt());
                     break;
+                case 5:
+                    System.out.println("Select a seat by typing the row and column number");
+                    List<List<Integer>> seats = userBookingService.fetchSeats(trainSelectedForBooking);
+                    break;
+                default:
+                    break;
             }
 
         }
