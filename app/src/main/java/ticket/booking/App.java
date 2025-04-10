@@ -12,7 +12,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println("Running Train Booking System");
-        Scanner s = new Scanner(System.in);
+        Scanner s = new Scanner(System.in); // scanner is used to take input from the CLI
 
         int option = 0;
         UserBookingService userBookingService;
@@ -34,6 +34,7 @@ public class App {
             System.out.println("6. Cancel my Booking");
             System.out.println("7. Exit the App");
             option = s.nextInt();
+            Train trainSelectedForBooking = new Train();
 
             switch (option) {
                 case 1:
@@ -70,19 +71,26 @@ public class App {
                     userBookingService.fetchBookings();
                     break;
                 case 4:
+                    // taking user's input for source and destination
                     System.out.println("Enter your source station");
                     String source = s.next();
                     System.out.println("Enter your destination station");
                     String destination = s.next();
 
+                    // calling the method from TrainService to get the list of trains
                     List<Train> trains = userBookingService.getTrains(source, destination);
+
+                    // displaying searched trains one by one
                     int index = 1;
                     for (Train train : trains) {
                         System.out.println(index + " Train id: " + train.getTrainId());
+                        for (Map.Entry<String, String> entry : train.getStationTimes().entrySet()) {
+                            System.out.println("station " + entry.getKey() + " time : " + entry.getValue());
+                        }
                     }
-                    for(Map.Entry<String, String> entry: train.getStationTimes().entrySet()){
-                        System.out.println("station "+entry.getKey() + " time : " + entry.getValue());
-                    }
+                    System.out.println("Select a train by typing 1,2,3...");
+                    trainSelectedForBooking = trains.get(s.nextInt());
+                    break;
             }
 
         }
