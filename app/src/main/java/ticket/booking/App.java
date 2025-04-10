@@ -94,6 +94,24 @@ public class App {
                 case 5:
                     System.out.println("Select a seat by typing the row and column number");
                     List<List<Integer>> seats = userBookingService.fetchSeats(trainSelectedForBooking);
+                    for (List<Integer> row : seats) {
+                        for (Integer val : row) {
+                            System.out.println(val + "");
+                        }
+                        System.out.println();
+                    }
+                    System.out.println("Select the seat by typing the row and column");
+                    System.out.println("Enter the row");
+                    int row = s.nextInt();
+                    System.out.println("Enter the column");
+                    int col = s.nextInt();
+                    System.out.println("Booking your seat....");
+                    Boolean booked = userBookingService.bookTrainSeat(trainSelectedForBooking, row, col);
+                    if (booked.equals(Boolean.TRUE)) {
+                        System.out.println("Seat has been booked");
+                    } else {
+                        System.out.println("Can't book the seat");
+                    }
                     break;
                 default:
                     break;
